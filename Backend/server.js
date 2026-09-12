@@ -4,6 +4,7 @@ const env=require('dotenv').config();
 const cors=require('cors');
 const db=require("./src/config/db")
 const userRoutes=require('./src/routes/user.route')
+const {isAuth} =require('./src/middlewares/isAuth.middleware')
 const CookieParser=require('cookie-parser')
 
 const PORT= process.env.PORT || 4000;
@@ -15,7 +16,13 @@ app.use(express.json())
 app.use(CookieParser())
 
 app.use('/api/user',userRoutes)
+app.get('/test',isAuth,(req,res)=>{
+    console.log('middleware runs')
+})
+
+
 app.listen(PORT,()=>{
     console.log(`Server is running on port http://localhost:${PORT}`);
+    isAuth
 });
 
