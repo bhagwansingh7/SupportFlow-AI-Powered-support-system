@@ -99,10 +99,11 @@ const loginUser = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: false, 
-            sameSite: "lax"
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
         });
         const { password: _, ...safeUser } = user;
-
+        // console.log('safeUser',safeUser)
         return res.status(200).json({
             'message':"user login successfully",
             user:safeUser
@@ -117,6 +118,44 @@ const loginUser = async (req, res) => {
     }
 };
 
+const getCurrentUser=async(req,res)=>{
+    try {
+        // console.log("COOKIE:", req.cookies);
+        // console.log("TOKEN:", req.cookies?.token);
+        // console.log("cookie:",req.cookies)
+        const token=req.cookies.token
+      
+        if(!token){
+            res.status(401).json({
+                'message':"user not authenticate"
+            })
+        }
+        const decoded=jwt.verify(token,process.env.JWT_SECRET)
+        const user=await getUserById(decoded.id)
+
+        if(!user){
+            return res.status(404).json({
+                message:'User Not found'
+            })
+        }
+        res.status(201).json({user})
 
 
-module.exports={registerUser,getusers,getuser,loginUser}
+
+        
+    } catch (error) {
+        res.status(500).json({
+            message:'invalid or expired token'
+        })
+    }
+
+
+}
+
+
+
+
+module.exports={registerUser,getusers,getuser,loginUser,
+    getCurrentUser
+
+}

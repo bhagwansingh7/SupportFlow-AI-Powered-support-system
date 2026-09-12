@@ -14,10 +14,14 @@ const Login = () => {
   const handleLogin=async (e)=>{
     e.preventDefault()
     try {
-      const res=await axios.post('http://127.0.0.1:5000/api/user/login',{
+      const res=await axios.post('http://localhost:5000/api/user/login',{
         email,
         password
-      })
+      },
+      {
+       withCredentials:true
+      }
+    )
 
       console.log("login successfull",res.data)
       setUser(res.data.user)
