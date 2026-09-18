@@ -1,8 +1,40 @@
 const db=require('../config/db')
+const {isAuth}=require('../middlewares/isAuth.middleware')
+const createTicket = async (ticketData, createdBy) => {
+    const {
+        title,
+        description,
+        priority,
+        category
+    } = ticketData;
 
-const createTicket=()=>{
+    const [ticket] = await db.execute(
+        `INSERT INTO tickets 
+        (title, description, priority, category, created_by)
+        VALUES (?, ?, ?, ?, ?)`,
+        [title, description, priority, category, createdBy]
+    );
+
+    return ticket.insertId;
+};
+
+
+//delete the ticket
+
+const deleteTicket=async (ticketId,createdBy)=>{
+    try {
+        const [result]=await db.execute(`
+            DELETE FROM tickets WHERE id=? AND created_By=?
+            `,[ticketId,createdBy])
+        return result
+
+    } catch (error) {
+        throw error
+    }
+
 
 }
+
 
 const getAllTickets= async ()=>{
 
@@ -20,7 +52,20 @@ const getAllTickets= async ()=>{
 
 }
 
-const getTicketById=()=>{
+const getTicketById=async(id)=>{
+    try {
+
+        const [ticket]=await db.execute(`
+            SELECT * FROM tickets where id=?
+            `,[id])
+
+            return ticket
+        
+    } catch (error) {
+        console.log('error in deleting the ticket',error)
+        throw error
+    }
+
 
 }
 
@@ -28,4 +73,6 @@ const getUnResolvedTicekt=()=>{
 
 }
 
-module.exports={getAllTickets}
+module.exports={getAllTickets,createTicket,
+    deleteTicket,getTicketById
+}

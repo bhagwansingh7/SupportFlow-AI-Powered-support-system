@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const {isAuth}=require('../middlewares/isAuth.middleware')
+const {isAuthorized}=require('../middlewares/isAuthorized.middleware')
 
 
 const {
@@ -12,10 +13,10 @@ const {
 }=require('../controllers/user.controller')
 
 router.post('/register',registerUser)
-router.get('/getallusers',getusers)
+router.get('/getallusers',isAuth,isAuthorized("admin"),getusers)
 router.get('/getUserById/:id',getuser)
 router.post('/login',loginUser)
-router.get('/me',isAuth,getCurrentUser)
+router.get('/me',getCurrentUser)
 
 
 
