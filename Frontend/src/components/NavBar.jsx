@@ -131,10 +131,10 @@ const NavBar = () => {
             </a>
 
             <a
-              href="#contact"
+              href="/create-ticket"
               className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600"
             >
-              Contact
+              CreateTicket
             </a>
 
             <div className="mt-2 flex gap-3 border-t border-slate-100 pt-4">

@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./NavBar";
+import NavBar from "../components/NavBar";
 import { useUser } from "../context/UserContext";
 
 const Home = () => {
