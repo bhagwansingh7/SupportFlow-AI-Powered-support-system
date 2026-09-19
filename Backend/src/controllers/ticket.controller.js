@@ -3,7 +3,9 @@ const {
     createTicket,
     getAllTickets,
     deleteTicket,
-    getTicketById
+    getTicketById,
+    getUnResolvedTickets,
+    getUsersTicket
 }=require('../models/ticket.model')
 
 
@@ -22,7 +24,26 @@ const getallTickets=async(req,res)=>{
         
     }
 }
+//getall tickets by id
 
+const getallTicketsByid=async(req,res)=>{
+    const {id}=req.params
+    console.log(id)
+
+    try {
+        const response=await getUsersTicket(id)
+        res.status(201).json({
+            message:' users tickets',
+            response
+        })
+    } catch (error) {
+        res.status(401).json({
+            message:'error in fetching users tickets',
+            error:error.message
+        })
+    }
+
+}
 //create tickets
 const createticket=async(req,res)=>{
     const ticketData=req.body
@@ -35,7 +56,7 @@ const createticket=async(req,res)=>{
         console.log(error)
         res.status(401).json({
             message:'error in ticket creation',
-            error
+            error:error.message
         })
     }
 
@@ -75,8 +96,21 @@ const getTicket=async(req,res)=>{
     }
 }
 
+//get unresolved tickets
+
+const getunResolvedTickets=async(req,res)=>{
+    try {
+        const tickets=await getUnResolvedTickets();
+        res.status(201).json(tickets)
+    } catch (error) {
+        res.status(401).json({
+            message:'error in fetching unresolved tickets',
+            error:error.message
+        })
+    }
+}
 
 
 module.exports={getallTickets,createticket,deleteTicketById,
-    getTicket
+    getTicket,getunResolvedTickets,getallTicketsByid
 }

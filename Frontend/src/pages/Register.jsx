@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { URL } from "../apis/Backend_url";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name,setName]=useState('')
-  const [email,setEmail]=useState('')
+  const [email,setEmail]=useState('') 
   const [password,setPassword]=useState('')
   const navigate=useNavigate()
 
@@ -14,7 +15,7 @@ const Register = () => {
     e.preventDefault()
     console.log(name,email,password)
       try {
-          const res=await axios.post('http://localhost:5000/api/user/register',{
+          const res=await axios.post(`${URL}/api/user/register`,{
             name,email,password
       },
       {

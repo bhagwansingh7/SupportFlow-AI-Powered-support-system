@@ -1,15 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useUser } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { URL } from '../apis/Backend_url'
 const CreateTicket = () => {
-  const [user]=useUser();
-  const navigate=useNavigate();
+    const [title,setTitle]=useState('');
+    const [category,setCategory]=useState('');
+    const [description,setDescription]=useState('');
+    const [priority,setPriority]=useState('');
+    const {user}=useUser();
+    const navigate=useNavigate();
 
-  const handleCreateTicket=async()=>{
+  const handleCreateTicket=async(e)=>{
+    e.preventDefault()
+    console.log(title)
     try {
+
+      const ticket=await axios.post(`${URL}/api/tickets/createTicket`,{
+        title,
+        description,
+        priority,
+        category
+      },{
+        withCredentials:true
+      })
+      console.log(ticket.data)
+      navigate('/')
       
     } catch (error) {
-      
+      console.log("error in ticket creation",error)
+
     }
     
 
@@ -36,7 +56,9 @@ const CreateTicket = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-6">
+        <form className="space-y-6"
+        onSubmit={handleCreateTicket}
+        >
 
           {/* Title */}
           <div>
@@ -52,6 +74,8 @@ const CreateTicket = () => {
               id="title"
               name="title"
               placeholder="Enter ticket title"
+              value={title}
+              onChange={(e)=>setTitle(e.target.value)}
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
             />
           </div>
@@ -70,6 +94,8 @@ const CreateTicket = () => {
               name="description"
               rows="6"
               placeholder="Describe your issue..."
+              value={description}
+              onChange={(e)=>setDescription(e.target.value)}
               className="w-full resize-y rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
             />
           </div>
@@ -88,6 +114,8 @@ const CreateTicket = () => {
               <select
                 id="priority"
                 name="priority"
+                value={priority}
+                onChange={(e)=>setPriority(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
               >
                 <option value="">Select priority</option>
@@ -109,6 +137,8 @@ const CreateTicket = () => {
               <select
                 id="category"
                 name="category"
+                value={category}
+                onChange={(e)=>setCategory(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
               >
                 <option value="">Select category</option>

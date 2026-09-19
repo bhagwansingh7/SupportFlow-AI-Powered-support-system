@@ -7,7 +7,7 @@ const Home = () => {
   console.log('user data from home page:',user)
   return (
     <main className="min-h-screen bg-slate-50">
-      <NavBar />
+      <NavBar />t
 
       {/* Hero */}
       <section className="relative overflow-hidden">

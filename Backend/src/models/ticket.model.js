@@ -51,6 +51,30 @@ const getAllTickets= async ()=>{
     }
 
 }
+//getAllTicketsByUserId
+
+const getUsersTicket=async(userId)=>{
+    try {
+        const [tickets]=await db.execute(`
+            SELECT * FROM tickets where created_by=?
+        `,[userId])
+        return tickets
+    } catch (error) {
+        throw error
+    }
+}
+//get unresolved tickets
+const getUnResolvedTickets=async()=>{
+    try {
+        const [tickets]=await db.execute(`select * from tickets where status=?`,
+            ['open']
+        );
+        return tickets
+    } catch (error) {
+        throw error
+    }
+
+}
 
 const getTicketById=async(id)=>{
     try {
@@ -69,10 +93,9 @@ const getTicketById=async(id)=>{
 
 }
 
-const getUnResolvedTicekt=()=>{
 
-}
 
 module.exports={getAllTickets,createTicket,
-    deleteTicket,getTicketById
+    deleteTicket,getTicketById,getUnResolvedTickets,
+    getUsersTicket
 }
