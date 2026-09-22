@@ -11,7 +11,9 @@ import TicketDetails from "./pages/TicketDetails";
 import AllTickets from "./pages/AllTickets";
 import AgentProfile from "./pages/AgentProfile";
 import { useUser } from "./context/UserContext";
-
+import AdminProfile from "./pages/AdminProfile";
+import { AdminProvider } from "./context/AdminContext";
+import Tickets from "./pages/TicketManagement/Tickets";
 
 function App() {
   const {user}=useUser()
@@ -24,13 +26,31 @@ function App() {
         <Route  path='/login'    element={<Login/>} />
         <Route  path='/register'    element={<Register/>} />
         {/* <Route  path='/profile'    element={<Profile/>} /> */}
-        <Route path="/profile"
-        element={
-          user?.role === "agent"
-            ? <AgentProfile />
-            : <Profile />
+        <Route
+          path="/profile"
+          element={
+            user?.role === "admin"
+              ?
+              
+                <AdminProfile />
+              
+              : user?.role === "agent"
+                ? <AgentProfile />
+                : <Profile />
           }
         />
+        <Route path='/DashBoard' element={ user?.role==="admin" ? 
+       
+          <AdminProfile/>
+        
+        :user?.role==="agent" ? 
+        <AgentProfile/>:<Profile/>} />
+
+        <Route path='/manage-tickets' element={ 
+        
+          <Tickets/>
+        
+        }/>
 
         <Route  path='/create-ticket'    element={<CreateTicket/>} />
         <Route  path='/ticket-details/:id'    element={<TicketDetails/>} />

@@ -5,13 +5,17 @@ import App from './App.jsx'
 import { UserProvider } from './context/UserContext'
 import { TicketProvider } from './context/TicketContext.jsx'
 import { AgentTicketProvider } from './context/AgentTicketContext.jsx'
+import { AdminProvider } from './context/AdminContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserProvider>
       <TicketProvider>
         <AgentTicketProvider>
-      <App />
+            <AdminProvider>
+              <App />
+              </AdminProvider>
+      
       </AgentTicketProvider>
       </TicketProvider>
     </UserProvider>

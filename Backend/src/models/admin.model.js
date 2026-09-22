@@ -19,7 +19,7 @@ const registerAgent=async(agentData)=>{
 
 }
 //get agent by status
-const getAgent=async()=>{
+const getAllAgents=async()=>{
     try {
         const [agent]=await db.execute(`select * from users where role=?`,['agent']);
         return agent
@@ -27,6 +27,24 @@ const getAgent=async()=>{
         throw error
     }
 
+}
+//getAllUsersRather than admin only users
+const getAllUsers=async()=>{
+    try {
+        const [users]=await db.execute(`SELECT * FROM users where role<>"admin"`)
+        return users
+    } catch (error) {
+        throw error
+    }
+}
+
+const getAllTickets=async()=>{
+    try {
+        const [tickets]=await db.execute(`SELECT * FROM tickets`)
+        return tickets
+    } catch (error) {
+        throw error
+    }
 }
 
 
@@ -58,4 +76,6 @@ const assignTickets=async(ticketId,agentId)=>{
 
 
 
-module.exports={registerAgent,getAgent,assignTickets}
+module.exports={registerAgent,getAllAgents,assignTickets,getAllUsers,
+    getAllTickets
+}

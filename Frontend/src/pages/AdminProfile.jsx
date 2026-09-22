@@ -1,6 +1,26 @@
 import React from "react";
+import { useUser } from "../context/UserContext";
+import { useTickets } from "../context/TicketContext";
+import { useAdminData } from "../context/AdminContext";
+import { useNavigate } from "react-router-dom";
 
 const AdminProfile = () => {
+  const {users,setUsers}=useAdminData();
+  const {tickets,useTickets}=useAdminData();
+  const {agents,setAgents}=useAdminData()
+  const navigate=useNavigate()
+  
+  const pendigTickets=tickets.filter(ticket=>ticket.status='in_progress').length
+  const opentickets=tickets.filter(ticket=>ticket.status='open').length
+   const ResolvedTickets=tickets.filter(ticket=>ticket.status='resolved').length
+  
+  
+
+
+
+
+
+
   return (
     <div className="min-h-screen bg-slate-50 px-6 py-10">
       <div className="mx-auto max-w-7xl">
@@ -43,7 +63,7 @@ const AdminProfile = () => {
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-sm text-slate-500">Total Users</p>
             <h2 className="mt-2 text-3xl font-bold text-slate-800">
-              128
+              {users.length}
             </h2>
             <p className="mt-2 text-xs text-slate-400">
               Registered users
@@ -53,7 +73,7 @@ const AdminProfile = () => {
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-sm text-slate-500">Total Agents</p>
             <h2 className="mt-2 text-3xl font-bold text-slate-800">
-              12
+              {agents.length}
             </h2>
             <p className="mt-2 text-xs text-slate-400">
               Active support agents
@@ -63,7 +83,7 @@ const AdminProfile = () => {
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-sm text-slate-500">Total Tickets</p>
             <h2 className="mt-2 text-3xl font-bold text-slate-800">
-              342
+              {tickets.length}
             </h2>
             <p className="mt-2 text-xs text-slate-400">
               All support tickets
@@ -73,7 +93,7 @@ const AdminProfile = () => {
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-sm text-slate-500">Pending Tickets</p>
             <h2 className="mt-2 text-3xl font-bold text-orange-500">
-              47
+              {pendigTickets}
             </h2>
             <p className="mt-2 text-xs text-slate-400">
               Waiting for resolution
@@ -125,7 +145,9 @@ const AdminProfile = () => {
               </p>
             </button>
 
-            <button className="rounded-xl border border-slate-200 p-5 text-left transition hover:border-green-300 hover:bg-green-50">
+            <button
+            onClick={()=>navigate('/manage-tickets')}
+            className="rounded-xl border border-slate-200 p-5 text-left transition hover:border-green-300 hover:bg-green-50">
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 text-green-600">
                 🎫
               </div>
@@ -174,7 +196,7 @@ const AdminProfile = () => {
               </div>
 
               <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                128 Users
+                {users.length} users
               </span>
             </div>
 
@@ -228,7 +250,7 @@ const AdminProfile = () => {
               </div>
 
               <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-                342 Tickets
+                {tickets.length} Tickets
               </span>
             </div>
 
@@ -289,7 +311,7 @@ const AdminProfile = () => {
                 Open
               </p>
               <p className="mt-2 text-2xl font-bold text-yellow-800">
-                31
+                {opentickets}
               </p>
             </div>
 
@@ -298,7 +320,7 @@ const AdminProfile = () => {
                 In Progress
               </p>
               <p className="mt-2 text-2xl font-bold text-blue-800">
-                16
+                {pendigTickets}
               </p>
             </div>
 
@@ -307,7 +329,7 @@ const AdminProfile = () => {
                 Resolved
               </p>
               <p className="mt-2 text-2xl font-bold text-green-800">
-                295
+                {ResolvedTickets}
               </p>
             </div>
 

@@ -1,9 +1,15 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user } = useUser();
+  const navigate=useNavigate()
+
+
+
+
   console.log('user data from home page:',user)
   return (
     <main className="min-h-screen bg-slate-50">
@@ -55,12 +61,12 @@ const Home = () => {
             {/* Buttons */}
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
 
-              <a
-                href="/tickets"
+              <button
+                onClick={()=>navigate('/DashBoard')}
                 className="w-full rounded-lg bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 sm:w-auto"
               >
                 Go to Dashboard →
-              </a>
+              </button>
 
               <a
                 href="#features"

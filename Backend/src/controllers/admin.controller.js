@@ -1,5 +1,8 @@
-const {registerAgent, getAgent}=require('../models/admin.model')
-const {assignTickets} =require('../models/admin.model')
+const {registerAgent, getAllAgents}=require('../models/admin.model')
+const {assignTickets,getAllUsers,
+    getAllTickets
+} =require('../models/admin.model')
+
 
 //registerAgent
 
@@ -22,9 +25,9 @@ const registeragent=async(req,res)=>{
 
 }
 //get agent 
-const getagent=async(req,res)=>{
+const getagents=async(req,res)=>{
     try {
-        const agent=await getAgent();
+        const agent=await getAllAgents();
         res.status(201).json(agent)
         
     } catch (error) {
@@ -34,7 +37,33 @@ const getagent=async(req,res)=>{
         })
     }
 }
+const getalltickets=async(req,res)=>{
+    try {
+        const tickets=await getAllTickets();
+        res.status(201).json(tickets)
+        
+    } catch (error) {
+        res.status(201).json({
+            message:'error in fetching the tickets',
+            error:error.message
+        })
+    }
+}
+//get users
+const getUsers=async(req,res)=>{
+    try {
 
+        const users=await getAllUsers();
+        res.status(201).json(users)
+        
+
+    } catch (error) {
+        res.json({
+            message:"error in fetching users",
+            error:error.message
+        })
+    }
+}
 //assign tickets
 
 const assigntickets=async(req,res)=>{
@@ -57,4 +86,4 @@ const assigntickets=async(req,res)=>{
     }
 
 }
-module.exports={registeragent,getagent,assigntickets}
+module.exports={registeragent,getagents,assigntickets,getUsers,getalltickets}
