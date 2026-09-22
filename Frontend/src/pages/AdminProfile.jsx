@@ -10,9 +10,9 @@ const AdminProfile = () => {
   const {agents,setAgents}=useAdminData()
   const navigate=useNavigate()
   
-  const pendigTickets=tickets.filter(ticket=>ticket.status='in_progress').length
-  const opentickets=tickets.filter(ticket=>ticket.status='open').length
-   const ResolvedTickets=tickets.filter(ticket=>ticket.status='resolved').length
+  const pendigTickets=tickets.filter(ticket=>ticket.status==='in_progress').length
+  const opentickets=tickets.filter(ticket=>ticket.status==='open').length
+   const ResolvedTickets=tickets.filter(ticket=>ticket.status==='resolved').length
   
   
 

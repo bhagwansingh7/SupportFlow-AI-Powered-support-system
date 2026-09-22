@@ -6,14 +6,15 @@ const AllTickets = () => {
   const [filter, setFilter] = useState("all");
   const {tickets}=useAdminData()
   const navigate=useNavigate()
+  // console.log('all tickets',tickets)
 // Filter tickets according to selected tab
   const filteredTickets =
     filter === "all"
       ? tickets
       : tickets.filter((ticket) => ticket.status === filter);
 
-console.log('filter is:',filter);
-console.log('filteres tickets',filteredTickets)
+
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <button onClick={()=>navigate('/DashBoard')}><HiArrowLeft/></button>
@@ -195,7 +196,7 @@ console.log('filteres tickets',filteredTickets)
                           ${
                             ticket.status === "open"
                               ? "bg-blue-100 text-blue-700"
-                              : ticket.status === "pending"
+                              : ticket.status === "in_progress"
                               ? "bg-yellow-100 text-yellow-700"
                               : "bg-green-100 text-green-700"
                           }

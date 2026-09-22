@@ -5,7 +5,7 @@ import { URL } from "../../apis/Backend_url";
 import { useNavigate } from "react-router-dom";
 import { HiArrowLeft } from "react-icons/hi2";
 const ManageTickets = () => {
-  const { tickets, agents } = useAdminData();
+  const { tickets, agents ,setTickets} = useAdminData();
 
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [ticketId, setTicketId] = useState("");
@@ -33,6 +33,21 @@ const ManageTickets = () => {
             withCredentials:true
         })
         
+        console.log("asssign ticket response:",response.data)
+
+            setTickets((prevTickets) =>
+      prevTickets.map((ticket) =>
+        ticket.id === Number(ticketId)
+          ? {
+              ...ticket,
+              assigned_to: Number(agentId)
+            }
+          : ticket
+      )
+    );
+        setSelectedTicket(null)
+        setAgentId("")
+        setTicketId("")
         
     } catch (error) {
         console.log("error in assigning tickets",error)

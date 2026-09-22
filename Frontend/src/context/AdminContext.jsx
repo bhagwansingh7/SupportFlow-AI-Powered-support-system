@@ -14,7 +14,7 @@ export const AdminProvider=({children})=>{
             const response=await axios.get(`${URL}/api/admin/getAllUsers`,{
                 withCredentials:true
             })
-            console.log("admin users:",response.data)
+            // console.log("admin users:",response.data)
             setUsers(response.data)
         } catch (error) {
             console.log('error in fetching all users at admin context',error)
@@ -27,8 +27,9 @@ export const AdminProvider=({children})=>{
             const response=await axios.get(`${URL}/api/admin/getAllTickets`,{
                 withCredentials:true
             })
-            console.log("all  Tickets from admin:",response.data)
+            console.log("all  Tickets before set:",response.data)
             setTickets(response.data)
+            console.log("after set the tickets:",response.data)
         } catch (error) {
             console.log('error in fetching all Tickets at admin context',error)
         }
