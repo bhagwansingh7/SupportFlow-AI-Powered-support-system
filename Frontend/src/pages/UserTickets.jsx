@@ -4,7 +4,7 @@ import axios from "axios";
 import { URL } from "../apis/Backend_url";
 import { useNavigate } from "react-router-dom";
 import { useTickets } from "../context/TicketContext";
-const AllTickets = () => {
+const UserTickets = () => {
 
 const {tickets}=useTickets();
 
@@ -122,5 +122,5 @@ const {tickets}=useTickets();
   );
 };
 
-export default AllTickets;
+export default UserTickets;
 

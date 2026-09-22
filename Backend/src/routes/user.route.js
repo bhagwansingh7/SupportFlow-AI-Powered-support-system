@@ -9,7 +9,8 @@ const {
     getusers,
     getuser,
     loginUser,
-    getCurrentUser
+    getCurrentUser,
+    logout
 }=require('../controllers/user.controller')
 
 router.post('/register',registerUser)
@@ -17,6 +18,7 @@ router.get('/getallusers',isAuth,isAuthorized("admin"),getusers)
 router.get('/getUserById/:id',getuser)
 router.post('/login',loginUser)
 router.get('/me',getCurrentUser)
+router.get('/logout',logout)
 
 
 

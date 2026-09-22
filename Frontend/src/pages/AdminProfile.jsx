@@ -3,10 +3,10 @@ import { useUser } from "../context/UserContext";
 import { useTickets } from "../context/TicketContext";
 import { useAdminData } from "../context/AdminContext";
 import { useNavigate } from "react-router-dom";
-
+import { HiArrowLeft,HiArrowRight } from "react-icons/hi2";
 const AdminProfile = () => {
   const {users,setUsers}=useAdminData();
-  const {tickets,useTickets}=useAdminData();
+  const {tickets}=useAdminData();
   const {agents,setAgents}=useAdminData()
   const navigate=useNavigate()
   
@@ -23,6 +23,7 @@ const AdminProfile = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 px-6 py-10">
+      <button onClick={()=>navigate('/')}><HiArrowLeft/></button>
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
@@ -161,7 +162,9 @@ const AdminProfile = () => {
               </p>
             </button>
 
-            <button className="rounded-xl border border-slate-200 p-5 text-left transition hover:border-orange-300 hover:bg-orange-50">
+            <button
+            onClick={()=>navigate('/assign-tickets')}
+             className="rounded-xl border border-slate-200 p-5 text-left transition hover:border-orange-300 hover:bg-orange-50">
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
                 🔗
               </div>
@@ -206,13 +209,16 @@ const AdminProfile = () => {
                 <div>
                   <p className="font-medium text-slate-800">
                     View All Users
+
                   </p>
                   <p className="text-xs text-slate-500">
                     See complete user list
                   </p>
                 </div>
 
-                <button className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700">
+                <button 
+                onClick={()=>navigate('/manage-users')}
+                className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700">
                   View
                 </button>
               </div>
@@ -266,7 +272,9 @@ const AdminProfile = () => {
                   </p>
                 </div>
 
-                <button className="rounded-lg bg-green-600 px-4 py-2 text-xs font-semibold text-white hover:bg-green-700">
+                <button 
+                onClick={()=>navigate('/all-tickets')}
+                 className="rounded-lg bg-green-600 px-4 py-2 text-xs font-semibold text-white hover:bg-green-700">
                   View
                 </button>
               </div>
@@ -281,7 +289,9 @@ const AdminProfile = () => {
                   </p>
                 </div>
 
-                <button className="rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white hover:bg-orange-600">
+                <button 
+                onClick={()=>navigate('/manage-tickets')}
+                className="rounded-lg bg-orange-500 px-4 py-2 text-xs font-semibold text-white hover:bg-orange-600">
                   Assign
                 </button>
               </div>

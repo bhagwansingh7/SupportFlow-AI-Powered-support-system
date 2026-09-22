@@ -8,7 +8,7 @@ const { getallTickets,
     getTicket,
     getunResolvedTickets,
     getallTicketsByid} = require('../controllers/ticket.controller');
-const {assigntickets} =require('../controllers/admin.controller')
+
 const { isAuthorized } = require('../middlewares/isAuthorized.middleware');
 
 
@@ -19,7 +19,7 @@ ticketRouter.post('/createTicket',isAuth,createticket)
 ticketRouter.delete('/deleteTicketById/:id',isAuth,deleteTicketById)
 ticketRouter.get('/getTicketById/:id',isAuth,getTicket)
 ticketRouter.get('/getUnresolvedTickets',isAuth,isAuthorized('admin'),getunResolvedTickets)
-ticketRouter.patch('/:id/assign',isAuth,isAuthorized('admin'),assigntickets)
+
 ticketRouter.get('/getuserstickets/:id',isAuth,getallTicketsByid)
 
 module.exports=ticketRouter

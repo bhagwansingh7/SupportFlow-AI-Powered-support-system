@@ -1,51 +1,22 @@
 import React, { useState } from "react";
-
-const Tickets = () => {
+import { useAdminData } from "../../context/AdminContext";
+import { useNavigate } from "react-router-dom";
+import { HiArrowLeft } from "react-icons/hi2";
+const AllTickets = () => {
   const [filter, setFilter] = useState("all");
-
-  // Temporary data - later this will come from your API
-  const tickets = [
-    {
-      id: 1,
-      title: "Unable to login",
-      description: "User is unable to login to the application",
-      category: "Account",
-      priority: "high",
-      status: "open",
-      created_by: 2,
-      assigned_to: null,
-    },
-    {
-      id: 2,
-      title: "Payment issue",
-      description: "Payment was deducted but order was not created",
-      category: "Payment",
-      priority: "medium",
-      status: "pending",
-      created_by: 5,
-      assigned_to: 12,
-    },
-    {
-      id: 3,
-      title: "Profile update problem",
-      description: "Unable to update profile information",
-      category: "Account",
-      priority: "low",
-      status: "resolved",
-      created_by: 7,
-      assigned_to: 16,
-    },
-  ];
-
-  // Filter tickets according to selected tab
+  const {tickets}=useAdminData()
+  const navigate=useNavigate()
+// Filter tickets according to selected tab
   const filteredTickets =
     filter === "all"
       ? tickets
       : tickets.filter((ticket) => ticket.status === filter);
 
+console.log('filter is:',filter);
+console.log('filteres tickets',filteredTickets)
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-
+      <button onClick={()=>navigate('/DashBoard')}><HiArrowLeft/></button>
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">
@@ -87,10 +58,10 @@ const Tickets = () => {
         </button>
 
         <button
-          onClick={() => setFilter("pending")}
+          onClick={() => setFilter("in_progress")}
           className={`rounded-lg px-5 py-2.5 text-sm font-medium transition
             ${
-              filter === "pending"
+              filter === "in_progress"
                 ? "bg-blue-600 text-white"
                 : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
             }
@@ -263,7 +234,7 @@ const Tickets = () => {
                       )}
 
                       {/* PENDING */}
-                      {ticket.status === "pending" && (
+                      {ticket.status === "in_progress" && (
                         <button
                           className="text-sm font-medium text-yellow-600 hover:text-yellow-800 hover:underline"
                         >
@@ -318,4 +289,4 @@ const Tickets = () => {
   );
 };
 
-export default Tickets;
+export default AllTickets;

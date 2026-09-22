@@ -145,17 +145,40 @@ const getCurrentUser=async(req,res)=>{
         
     } catch (error) {
         res.status(500).json({
-            message:'invalid or expired token'
+            message:'invalid or expired token',
+            error:error.message
         })
     }
 
 
 }
 
+//logout user
 
+const logout=async (req,res)=>{
+    try {
+        res.clearCookie("token",{
+            httpOnly:true,
+            sameSite:"lax",
+            secure:false
+
+        })
+        res.status(200).json({
+            message:"Logged out successfully"
+        })
+        
+
+        
+    } catch (error) {
+        res.status(500).json({
+            message:'error in logout function',
+            error:error.message
+        })        
+    }
+}
 
 
 module.exports={registerUser,getusers,getuser,loginUser,
-    getCurrentUser
+    getCurrentUser,logout
 
 }

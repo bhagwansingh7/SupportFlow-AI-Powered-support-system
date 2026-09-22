@@ -51,7 +51,8 @@ const getAllTickets=async()=>{
 //assign-tickets to  the agents
 
 const assignTickets=async(ticketId,agentId)=>{
-
+    console.log("ticket id is",ticketId)
+    console.log(agentId)
     try {
         const [result]=await db.execute(
             `UPDATE tickets
@@ -62,9 +63,6 @@ const assignTickets=async(ticketId,agentId)=>{
         )
 
         return result
-        
-
-
     } catch (error) {
         console.log(error)
         throw error
@@ -73,9 +71,31 @@ const assignTickets=async(ticketId,agentId)=>{
 
 }
 
+//delete a user
+const deleteUser=async(id)=>{
+    console.log(id)
+    try {
+        const [result]=await db.execute(`DELETE FROM users where id=?`,[id])
+        return result
+    } catch (error) {
+        throw error
+    }
 
+}
+//updateUserRole
+const updateUser=async(id,newRole)=>{
+    try {
+        const [result]=await db.execute(`update users set role=?
+            where id=?`,[newRole,id])
+        return result
+
+    } catch (error) {
+        throw error
+    }
+
+}
 
 
 module.exports={registerAgent,getAllAgents,assignTickets,getAllUsers,
-    getAllTickets
+    getAllTickets,deleteUser,updateUser
 }

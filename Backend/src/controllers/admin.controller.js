@@ -1,7 +1,10 @@
 const {registerAgent, getAllAgents}=require('../models/admin.model')
 const {assignTickets,getAllUsers,
-    getAllTickets
+    getAllTickets,
+    updateUser,
+    deleteUser
 } =require('../models/admin.model')
+const { deleteTicketById } = require('./ticket.controller')
 
 
 //registerAgent
@@ -67,6 +70,9 @@ const getUsers=async(req,res)=>{
 //assign tickets
 
 const assigntickets=async(req,res)=>{
+    console.log("the assign ticket route hit ")
+    console.log("assign route hit")
+
     try {
         const ticketid=req.params.id
         
@@ -86,4 +92,44 @@ const assigntickets=async(req,res)=>{
     }
 
 }
-module.exports={registeragent,getagents,assigntickets,getUsers,getalltickets}
+
+const updateUserRole=async(req,res)=>{
+        const {id}=req.params
+        const { role }=req.body
+        console.log(id,role)
+        try {
+            const updatedUser=await updateUser(id,role);
+            res.status(201).json({message:'user update successfully',
+                updatedUser
+            })
+            
+        } catch (error) {
+            res.status(401).json({
+                message:"error in update user",
+                error:error.message
+            })
+        }
+}
+
+const deleteuser=async(req,res)=>{
+    try {
+        const result=await deleteUser(id);
+            res.status(201).json({message:'user deleted successfully',
+                result
+            })
+        
+    } catch (error) {
+        res.status(401).json({
+                message:"error in delete a user",
+                error:error.message
+            })
+    }
+}
+
+
+
+
+module.exports={registeragent,getagents,assigntickets,getUsers,getalltickets,
+    deleteuser,
+    updateUserRole
+}

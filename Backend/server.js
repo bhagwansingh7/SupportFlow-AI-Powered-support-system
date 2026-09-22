@@ -19,9 +19,7 @@ app.use(express.json())
 app.use(CookieParser())
 
 app.use('/api/user',userRoutes)
-// app.get('/test',isAuth,(req,res)=>{
-//     console.log('middleware runs')
-// })
+
 app.use('/api/tickets',ticketRoutes);
 app.use('/api/admin',adminRoutes);
 app.use('/api/agent',agentRoutes)
