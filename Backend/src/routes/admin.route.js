@@ -13,7 +13,7 @@ adminRouter.get('/getAllUsers',isAuth,isAuthorized('admin'),getUsers)
 adminRouter.get('/getAllTickets',isAuth,isAuthorized('admin'),getalltickets)
 adminRouter.patch('/:id/assign',isAuth,isAuthorized('admin'),assigntickets)
 adminRouter.put('/updateUser/:id',isAuth,isAuthorized('admin'),updateUserRole)
-adminRouter.delete('/deleteUser/:id',isAuth,isAuthorized('admin'),deleteuser)
+adminRouter.delete('/deleteUser/:id',deleteuser)
 
 
 module.exports=adminRouter;

@@ -12,6 +12,7 @@ export const TicketProvider = ({ children }) => {
     const id = user?.id;
 
     useEffect(() => {
+        console.log("user id from the Ticket context",id)
         if(!id) return;
         const getAllUsersTickets = async () => {
             try {
@@ -23,7 +24,7 @@ export const TicketProvider = ({ children }) => {
                     }
                 );
 
-                console.log("all tickets details", response.data);
+                console.log("all  User's tickets", response.data);
 
                 setTickets(response.data.response);
 

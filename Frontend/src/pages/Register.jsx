@@ -3,13 +3,14 @@ import NavBar from "../components/NavBar";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { URL } from "../apis/Backend_url";
-
+import { useUser } from "../context/UserContext";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name,setName]=useState('')
   const [email,setEmail]=useState('') 
   const [password,setPassword]=useState('')
   const navigate=useNavigate()
+  const {user,setUser}=useUser()
 
   const handleRegister=async(e)=>{
     e.preventDefault()
@@ -22,8 +23,9 @@ const Register = () => {
         withCredentials:true
       }
     )
-      console.log("registration data",res.data)
-      navigate('/')
+      console.log("registration data",res.data.res)
+      
+      navigate('/login')
 
 
       } catch (error) {

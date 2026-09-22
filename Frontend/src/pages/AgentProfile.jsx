@@ -1,17 +1,19 @@
 import React from "react";
 import { useUser } from "../context/UserContext";
 import { useAgentTickets } from "../context/AgentTicketContext";
-
+import { HiArrowLeft } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 const AgentProfile = () => {
     const {user}=useUser();
     const {tickets}=useAgentTickets()
+    const navigate=useNavigate()
     const OpenTicketsCount=tickets.filter(ticket=>ticket.status==='open').length
     const ResolvedTicketsCount=tickets.filter(ticket=>ticket.status==='resolved').length
     const InProgressTicketsCount=tickets.filter(ticket=>ticket.status==='in_progress').length
-    // enum('open','in_progress','resolved','closed')
+    
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-10">
-
+      <button onClick={navigate('/')}><HiArrowLeft/></button>
       {/* Header */}
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">

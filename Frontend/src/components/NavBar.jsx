@@ -1,7 +1,30 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+import axios from "axios";
+import { URL } from "../apis/Backend_url";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user,setUser } = useUser();
+  const Navigate=useNavigate()
+const handleLogout=async()=>{
+  try {
+
+    const response=await axios.get(`${URL}/api/user/logout`,{
+      withCredentials:true
+    })
+    console.log('logout:',response.data)
+    setUser(null)
+    Navigate('/')
+  } catch (error) {
+    console.log("error in logout function",error)
+  }
+
+}
+
+
+
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur-md">
@@ -20,50 +43,62 @@ const NavBar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="text-sm font-medium text-slate-700 transition hover:text-indigo-600"
           >
             Home
-          </a>
+          </Link>
 
-          <a
-            href="#features"
+          <Link
+            to="/#features"
             className="text-sm font-medium text-slate-700 transition hover:text-indigo-600"
           >
             Features
-          </a>
+          </Link>
 
-          <a
-            href="/profile"
+          <Link
+            to="/profile"
             className="text-sm font-medium text-slate-700 transition hover:text-indigo-600"
           >
             Profile
-          </a>
+          </Link>
 
-          <a
-            href="#contact"
+          <Link
+            to="/#contact"
             className="text-sm font-medium text-slate-700 transition hover:text-indigo-600"
           >
             Contact
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="/login"
-            className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
-          >
-            Login
-          </a>
+          {user ? (
+            <button
+            onClick={handleLogout}
+             className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+            >
+              Logout
+            </button>
 
-          <a
-            href="/register"
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 hover:shadow-md"
-          >
-            Get Started
-          </a>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 hover:shadow-md"
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -109,48 +144,60 @@ const NavBar = () => {
         <div className="border-t border-slate-200 bg-white px-6 py-4 md:hidden">
           <div className="flex flex-col gap-2">
 
-            <a
-              href="/"
+            <Link
+              to="/"
               className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600"
             >
               Home
-            </a>
+            </Link>
 
-            <a
-              href="#features"
+            <Link
+              to="/#features"
               className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600"
             >
               Features
-            </a>
+            </Link>
 
-            <a
-              href="/profile"
+            <Link
+              to="/profile"
               className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600"
             >
               Profile
-            </a>
+            </Link>
 
-            <a
-              href="/create-ticket"
+            <Link
+              to="/create-ticket"
               className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-indigo-600"
             >
               CreateTicket
-            </a>
+            </Link>
 
             <div className="mt-2 flex gap-3 border-t border-slate-100 pt-4">
-              <a
-                href="/login"
+              {user ? (
+                <button 
+                onClick={handleLogout}
                 className="flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              >
-                Login
-              </a>
+                >
+                  LogOut
+                </button>
 
-              <a
-                href="/register"
-                className="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-indigo-700"
-              >
-                Get Started
-              </a>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="flex-1 rounded-lg border border-slate-200 px-4 py-2.5 text-center text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    to="/register"
+                    className="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-indigo-700"
+                  >
+                    Get Started
+                  </Link>
+                </>
+              )}
             </div>
 
           </div>

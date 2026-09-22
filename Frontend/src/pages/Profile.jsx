@@ -8,11 +8,12 @@ import { useTickets } from "../context/TicketContext";
 const Profile = () => {
   const { user } = useUser();
   const {tickets}=useTickets();
+  console.log(tickets)
   const navigate=useNavigate()
   const OptenTicketsCount=tickets.filter(ticket=>ticket.status==='open').length
   const ResolvedTicketCount=tickets.filter(ticket=>ticket.status==='resolved').length
 
-console.log("Resolved tickets is:",ResolvedTicketCount)
+
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-8 sm:px-6 lg:px-8">
