@@ -27,7 +27,38 @@ const updateStatus=async(ticketStatus,ticketId,agentId)=>{
              where id=? and 
              assigned_to=?
             `,[ticketStatus,ticketId,agentId])
-            return result
+            
+
+        //update ticketActivity
+
+        const [rows] = await db.execute(
+            `SELECT new_value
+            FROM ticket_activity
+            WHERE ticket_id = ? AND user_id = ? AND action = ?`,
+            [ticketId, agentId, "status update"]
+        );
+
+        if (rows.length === 0) {
+    // First message
+            await db.execute(
+            `INSERT INTO ticket_activity
+            (ticket_id, user_id, action, old_value, new_value)
+            VALUES (?, ?, ?, ?, ?)`,
+            [ticketId, agentId, "status update", null, ticketStatus]
+    );
+} else {
+    // Message already exists
+    const old_value = rows[0].new_value;
+
+    await db.execute(
+        `UPDATE ticket_activity
+         SET old_value = ?, new_value = ?
+         WHERE ticket_id = ? AND user_id = ? AND action = ?`,
+        [old_value, ticketStatus, ticketId, agentId, "status update"]
+    );
+}
+
+return result
     } catch (error) {
         throw error
     }
