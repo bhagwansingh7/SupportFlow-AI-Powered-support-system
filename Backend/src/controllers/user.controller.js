@@ -5,7 +5,9 @@ const {
     createUser,
     getAllUsers,
     getUserById,
-    getUserByEmail
+    getUserByEmail,
+    sendResponse,
+    TicketActivity
 }=require('../models/user.model')
 
 
@@ -177,8 +179,67 @@ const logout=async (req,res)=>{
     }
 }
 
+const sendResponseToagent=async(req,res)=>{
+    const userId=req.user.id
+    const { id }=req.params
+    const {message}=req.body
+    if (!message || message.trim() === "") {
+            return res.status(400).json({
+                message: "Message is required"
+            });
+        }
+    try {
+        
+        const response=await sendResponse(id,userId,message);
+                
+  
+        res.status(200).json({
+             message: "Message sent successfully",
+            response
+        })
+
+
+
+    } catch (error) {
+        res.status(401).json({
+            message:'error in sending message to user',
+            error:error.message
+
+        })        
+    }
+
+}
+
+//getTicketActivity
+
+const getUserticketActivity=async(req,res)=>{
+    const sender_id  = req.user.id
+    const { id }=req.params
+
+    try {
+        const response=await TicketActivity(id,req.user.id)
+        if (!response) {
+            return res.status(403).json({
+                message: "You are not authorized to view this ticket"
+            });
+        }
+        res.status(200).json({
+            message:'ticket messages',
+            response
+        })
+        
+    } catch (error) {
+        res.status(401).json({
+            message:'error in sending message to user',
+            error:error.message
+
+        })
+    }
+}
+
+
 
 module.exports={registerUser,getusers,getuser,loginUser,
-    getCurrentUser,logout
+    getCurrentUser,logout,sendResponseToagent,getUserticketActivity
 
 }

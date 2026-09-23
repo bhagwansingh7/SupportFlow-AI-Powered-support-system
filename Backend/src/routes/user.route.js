@@ -10,7 +10,9 @@ const {
     getuser,
     loginUser,
     getCurrentUser,
-    logout
+    logout,
+    sendResponseToagent,
+    getUserticketActivity
 }=require('../controllers/user.controller')
 
 router.post('/register',registerUser)
@@ -19,6 +21,8 @@ router.get('/getUserById/:id',getuser)
 router.post('/login',loginUser)
 router.get('/me',getCurrentUser)
 router.get('/logout',logout)
+router.post('/ticket/:id/message',isAuth,isAuthorized('user'),sendResponseToagent)
+router.get('/ticket/:id/activity',isAuth,isAuthorized('user'),getUserticketActivity)
 
 
 
