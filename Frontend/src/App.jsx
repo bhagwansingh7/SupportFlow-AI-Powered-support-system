@@ -16,6 +16,8 @@ import { AdminProvider } from "./context/AdminContext";
 import AllTickets from "./pages/TicketManagement/AllTickets";
 import ManageTickets from "./pages/TicketManagement/ManageTickets";
 import ManageUser from "./pages/UserManagement/ManageUser";
+import AssignTickets from "./pages/AgentsWorking/AssignTickets";
+import { AgentTicketProvider } from "./context/AgentTicketContext";
 
 function App() {
   const {user}=useUser()
@@ -59,6 +61,13 @@ function App() {
         <Route  path='/manage-tickets'   element={<ManageTickets/>} />
         <Route  path='/all-tickets'    element={<AllTickets/>} />
         <Route path='/manage-users' element={<ManageUser/>}/>
+      {/*agent routes */}
+      <Route  path="/manage-assign-tickets" element={
+      <AgentTicketProvider>
+        <AssignTickets />
+      </AgentTicketProvider>
+        
+        }  />
 
 
       </Routes>

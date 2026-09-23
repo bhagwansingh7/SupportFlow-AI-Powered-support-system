@@ -16,15 +16,17 @@ const getAssignTickets=async(userid)=>{
 
 //update status of asssign tickets
 
-const updateStatus=async(ticketStatus,ticketId)=>{
+const updateStatus=async(ticketStatus,ticketId,agentId)=>{
     console.log("ticketstatus",ticketStatus)
     console.log("ticketId",ticketId)
+    console.log("agent Id",agentId)
     try {
         const [result]=await db.execute(`
             update tickets set status=?,
             updated_at = NOW()
-             where id=?
-            `,[ticketStatus,ticketId])
+             where id=? and 
+             assigned_to=?
+            `,[ticketStatus,ticketId,agentId])
             return result
     } catch (error) {
         throw error
@@ -56,6 +58,12 @@ const updateStatus=async(ticketStatus,ticketId)=>{
 
 const askQuestion = async (ticket_id, sender_id, message) => {
     try {
+        
+        const [result]=await db.execute(`select * from tickets where
+            id=? AND assigned_to=?`,[ticket_id,sender_id])
+        if(result.length===0){
+            return 
+        }
         const [response] = await db.execute(
             `INSERT INTO ticket_messages (ticket_id, sender_id, message)
              VALUES (?, ?, ?)`,
@@ -99,22 +107,26 @@ const askQuestion = async (ticket_id, sender_id, message) => {
 
 //get all messages 
 
-const getMessages = async (ticket_id, user_id) => {
+const getTicketActivity = async (ticket_id, user_id) => {
     try {
         const [response] = await db.execute(
-            `SELECT message
-             FROM ticket_messages
-             WHERE sender_id = ?
-             AND ticket_id = ?
-             ORDER BY created_at ASC`,
-            [user_id, ticket_id]
+            `SELECT ta.*
+             FROM ticket_activity ta
+             JOIN tickets t ON ta.ticket_id = t.id
+             WHERE ta.ticket_id = ?
+             AND t.assigned_to = ?
+             ORDER BY ta.created_at ASC`,
+            [ticket_id, user_id]
         );
 
-        
+        if (response.length === 0) {
+            return null;
+        }
+
         return response;
 
     } catch (error) {
         throw error;
     }
 };
-module.exports={getAssignTickets,updateStatus,askQuestion,getMessages}
+module.exports={getAssignTickets,updateStatus,askQuestion,getTicketActivity}
