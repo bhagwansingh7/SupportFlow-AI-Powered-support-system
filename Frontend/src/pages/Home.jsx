@@ -5,15 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user } = useUser();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
+  console.log("user data from home page:", user);
 
-
-
-  console.log('user data from home page:',user)
   return (
     <main className="min-h-screen bg-slate-50">
-      <NavBar />t
+      <NavBar />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -58,16 +56,40 @@ const Home = () => {
               empower your support team with one powerful platform.
             </p>
 
-            {/* Buttons */}
+            {/* Role Based Buttons */}
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
 
-              <button
-                onClick={()=>navigate('/DashBoard')}
-                className="w-full rounded-lg bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 sm:w-auto"
-              >
-                Go to Dashboard →
-              </button>
+              {/* USER */}
+              {user?.role === "user" && (
+                <button
+                  onClick={() => navigate("/create-ticket")}
+                  className="w-full rounded-lg bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 sm:w-auto"
+                >
+                  Create Ticket →
+                </button>
+              )}
 
+              {/* AGENT */}
+              {user?.role === "agent" && (
+                <button
+                  onClick={() => navigate("/Dashboard")}
+                  className="w-full rounded-lg bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 sm:w-auto"
+                >
+                  Agent Dashboard →
+                </button>
+              )}
+
+              {/* ADMIN */}
+              {user?.role === "admin" && (
+                <button
+                  onClick={() => navigate("/Dashboard")}
+                  className="w-full rounded-lg bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:bg-indigo-700 sm:w-auto"
+                >
+                  Admin Dashboard →
+                </button>
+              )}
+
+              {/* COMMON */}
               <a
                 href="#features"
                 className="w-full rounded-lg border border-slate-300 bg-white px-7 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-indigo-300 hover:bg-indigo-50 sm:w-auto"
@@ -202,12 +224,34 @@ const Home = () => {
               together in one simple platform.
             </p>
 
-            <a
-              href="/tickets"
-              className="mt-7 inline-block rounded-lg bg-white px-7 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-50"
-            >
-              Start Managing Tickets →
-            </a>
+            {/* Role Based Bottom Button */}
+
+            {user?.role === "user" && (
+              <button
+                onClick={() => navigate("/create-ticket")}
+                className="mt-7 rounded-lg bg-white px-7 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-50"
+              >
+                Create a Ticket →
+              </button>
+            )}
+
+            {user?.role === "agent" && (
+              <button
+                onClick={() => navigate("/Dashboard")}
+                className="mt-7 rounded-lg bg-white px-7 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-50"
+              >
+                Manage Assigned Tickets →
+              </button>
+            )}
+
+            {user?.role === "admin" && (
+              <button
+                onClick={() => navigate("/Dashboard")}
+                className="mt-7 rounded-lg bg-white px-7 py-3 font-semibold text-indigo-600 transition hover:bg-indigo-50"
+              >
+                Manage Support System →
+              </button>
+            )}
 
           </div>
 

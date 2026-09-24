@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { URL } from '../apis/Backend_url';
+import { useUser } from '../context/UserContext';
+import { HiArrowLeft } from 'react-icons/hi2';
 
 const TicketDetails = () => {
-    const [ticket, setTicket] = useState(null);
+    const {user}=useUser()
+    const [ticket,setTicket] = useState(null);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -53,10 +56,10 @@ const TicketDetails = () => {
 
                 {/* Back */}
                 <button
-                    onClick={() => navigate('/all-tickets')}
+                    onClick={() => navigate('/user-tickets')}
                     className="mb-6 text-sm font-medium text-indigo-600 hover:text-indigo-800"
                 >
-                    ← Back to My Tickets
+                    <HiArrowLeft /> Back to My Tickets
                 </button>
 
                 {/* Main Card */}

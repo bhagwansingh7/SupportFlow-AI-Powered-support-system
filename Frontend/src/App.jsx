@@ -52,9 +52,10 @@ function App() {
         <AgentProfile/>:<Profile/>} />
 
         
-
+          {/*user routes*/}
         <Route  path='/create-ticket'  element={<CreateTicket/>}/>
         <Route  path='/ticket-details/:id'  element={<TicketDetails/>}/>
+        <Route  path='/user-tickets'  element={<UserTickets/>}/>
         
        {/*admin routes */}
         

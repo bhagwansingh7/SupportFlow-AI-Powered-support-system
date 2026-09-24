@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import TicketDetails from "./TicketDetails";
 import { useNavigate } from "react-router-dom";
 import { useTickets } from "../context/TicketContext";
-
+import { HiArrowLeft } from "react-icons/hi2";
 const Profile = () => {
   const { user } = useUser();
   const {tickets}=useTickets();
@@ -12,6 +12,40 @@ const Profile = () => {
   const navigate=useNavigate()
   const OptenTicketsCount=tickets.filter(ticket=>ticket.status==='open').length
   const ResolvedTicketCount=tickets.filter(ticket=>ticket.status==='resolved').length
+
+    if (!user) {
+    return (
+      <div className="min-h-screen bg-slate-100">
+        <NavBar />
+
+        <div className="flex min-h-[70vh] items-center justify-center px-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-sm">
+
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-indigo-50 text-2xl">
+              🔐
+            </div>
+
+            <h1 className="mt-5 text-2xl font-bold text-slate-900">
+              Login Required
+            </h1>
+
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              Please login to view your profile and tickets.
+            </p>
+
+            <button
+              onClick={() => navigate("/login")}
+              className="mt-6 rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
+            >
+              Login
+            </button>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 
 
 
@@ -132,8 +166,39 @@ const Profile = () => {
 
           </div>
         </div>
+{/*view ticket section */}
+<div className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+  <div className="flex items-center justify-between">
+
+    <div>
+      <h2 className="text-lg font-bold text-slate-900">
+        Support Tickets
+      </h2>
+
+      <p className="mt-1 text-sm text-slate-500">
+        View and manage all your support tickets.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      onClick={() => navigate("/user-tickets")}
+      className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700"
+    >
+      View Tickets
+    </button>
+
+  </div>
+</div>
+
+
+
 
         {/* About Section */}
+
+
+
+
         <div className="mt-6 grid gap-6 md:grid-cols-2">
 
           {/* About */}

@@ -13,7 +13,7 @@ const AgentProfile = () => {
     
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-10">
-      <button onClick={navigate('/')}><HiArrowLeft/></button>
+      <button onClick={()=>navigate('/')}><HiArrowLeft/></button>
       {/* Header */}
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">

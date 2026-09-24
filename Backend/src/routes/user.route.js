@@ -21,8 +21,8 @@ router.get('/getUserById/:id',getuser)
 router.post('/login',loginUser)
 router.get('/me',getCurrentUser)
 router.get('/logout',logout)
-router.post('/ticket/:id/message',isAuth,isAuthorized('user'),sendResponseToagent)
-router.get('/ticket/:id/activity',isAuth,isAuthorized('user'),getUserticketActivity)
+router.post('/tickets/:id/message',isAuth,isAuthorized('user'),sendResponseToagent)
+router.get('/tickets/:id/activity',isAuth,isAuthorized('user'),getUserticketActivity)
 
 
 

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useAgentTickets } from "../../context/AgentTicketContext";
 import axios from "axios";
 import { URL } from "../../apis/Backend_url";
-
+import { useUser } from "../../context/UserContext";
 const AssignTickets = () => {
+  const {user}=useUser()
+  
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [showActivities, setShowActivities] = useState(false);
   const [showMessageBox, setShowMessageBox] = useState(false);
@@ -564,7 +566,7 @@ const AssignTickets = () => {
 
                             {/* USER */}
                             <p className="mt-1 text-sm text-gray-500">
-                              By User #{activity.user_id}
+                              By {(user.id===activity.user_id)?'agent':'user'}#{activity.user_id}
                             </p>
 
                             {/* OLD VALUE */}
