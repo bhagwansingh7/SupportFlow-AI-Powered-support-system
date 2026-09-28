@@ -1,0 +1,21 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check Docker Compose
+        run: docker compose version
+
+      - name: Build Docker containers
+        working-directory: ./Backend
+        run: docker compose build
