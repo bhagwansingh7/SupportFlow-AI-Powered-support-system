@@ -17,7 +17,9 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(CookieParser())
-
+app.get('/',(req,res)=>{
+    res.send('<h1>SupportFlow-AI powered Support System</h1>')
+})
 app.use('/api/user',userRoutes)
 
 app.use('/api/tickets',ticketRoutes);
