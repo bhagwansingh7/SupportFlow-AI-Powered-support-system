@@ -2,6 +2,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
 import axios from "axios";
+import { URL } from "../apis/Backend_url";
 
 export const UserProvider = ({ children }) => {
 
@@ -14,7 +15,7 @@ export const UserProvider = ({ children }) => {
           const getCurrentUser=async()=>{
             console.log("get current user runs")
             try {
-                const result=await axios.get('http://localhost:5000/api/user/me',{
+                const result=await axios.get(`${URL}/api/user/me`,{
                 withCredentials:true
                 })
             console.log('user data:',result.data)
