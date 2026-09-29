@@ -1,4 +1,4 @@
-name: Backend CI
+name: Backend + Frontend CI
 
 on:
   push:
@@ -16,6 +16,11 @@ jobs:
       - name: Check Docker Compose
         run: docker compose version
 
-      - name: Build Docker containers
+      - name: Build Backend
         working-directory: ./Backend
         run: docker compose build
+
+      - name: Build Frontend
+        working-directory: ./Frontend
+        run: docker compose build
+
