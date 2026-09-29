@@ -27,7 +27,7 @@ app.use('/api/admin',adminRoutes);
 app.use('/api/agent',agentRoutes)
 
 app.listen(PORT,()=>{
-    console.log(`Server is running on port http://localhost:${PORT}`);
+    console.log(`Server is running on port:${PORT}`);
     isAuth
 });
 

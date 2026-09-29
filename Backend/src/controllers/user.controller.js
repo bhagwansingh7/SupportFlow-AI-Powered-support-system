@@ -100,8 +100,8 @@ const loginUser = async (req, res) => {
         //cookies
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false, 
-            sameSite: "lax",
+            secure: true, 
+            sameSite: "none",
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
         const { password: _, ...safeUser } = user;
@@ -161,8 +161,8 @@ const logout=async (req,res)=>{
     try {
         res.clearCookie("token",{
             httpOnly:true,
-            sameSite:"lax",
-            secure:false
+            sameSite:"none", //lax for devlopment
+            secure:true //false for devlopment
 
         })
         res.status(200).json({
