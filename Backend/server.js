@@ -12,7 +12,7 @@ const CookieParser=require('cookie-parser')
 
 const PORT= process.env.PORT || 4000;
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://supportflow-ai-powered-support-system-aitm.onrender.com',
     credentials:true
 }))
 app.use(express.json())
