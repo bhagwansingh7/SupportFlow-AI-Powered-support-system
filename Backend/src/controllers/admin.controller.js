@@ -70,8 +70,8 @@ const getUsers=async(req,res)=>{
 //assign tickets
 
 const assigntickets=async(req,res)=>{
-    console.log("the assign ticket route hit ")
-    console.log("assign route hit")
+    // console.log("the assign ticket route hit ")
+    // console.log("assign route hit")
 
     try {
         const ticketid=req.params.id
@@ -96,7 +96,7 @@ const assigntickets=async(req,res)=>{
 const updateUserRole=async(req,res)=>{
         const {id}=req.params
         const { role }=req.body
-        console.log(id,role)
+        // console.log(id,role)
         try {
             const updatedUser=await updateUser(id,role);
             res.status(201).json({message:'user update successfully',

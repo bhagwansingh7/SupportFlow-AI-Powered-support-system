@@ -126,13 +126,8 @@ const sendResponse=async(ticketId,userId,message)=>{
         [ ticketId, userId, "response_sent",old_value,message]
     );
 }
-
-
-
-        return response
-
-        
-    } catch (error) {
+    return response
+} catch (error) {
         throw error
     }
 

@@ -22,9 +22,9 @@ const updateTicketStatus=async(req,res)=>{
     const  agentId =req.user.id
     const { status }=req.body
     const { id }=req.params
-    console.log(status)
-    console.log(req.params,id)
-    console.log( agentId , req.user.id)
+    // console.log(status)
+    // console.log(req.params,id)
+    // console.log( agentId , req.user.id)
     
     try {
         const response=await updateStatus(status,id,agentId);

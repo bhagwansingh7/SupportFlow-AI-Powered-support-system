@@ -1,5 +1,4 @@
 const db=require('../config/db')
-const {isAuth}=require('../middlewares/isAuth.middleware')
 const createTicket = async (ticketData, createdBy) => {
     const {
         title,
@@ -64,18 +63,6 @@ const getUsersTicket=async(userId)=>{
     }
 }
 //get unresolved tickets
-const getUnResolvedTickets=async()=>{
-    try {
-        const [tickets]=await db.execute(`select * from tickets where status=?`,
-            ['open']
-        );
-        return tickets
-    } catch (error) {
-        throw error
-    }
-
-}
-
 const getTicketById=async(id)=>{
     try {
 
@@ -96,6 +83,6 @@ const getTicketById=async(id)=>{
 
 
 module.exports={getAllTickets,createTicket,
-    deleteTicket,getTicketById,getUnResolvedTickets,
+    deleteTicket,getTicketById,
     getUsersTicket
 }

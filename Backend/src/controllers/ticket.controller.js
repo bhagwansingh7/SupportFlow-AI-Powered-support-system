@@ -28,7 +28,7 @@ const getallTickets=async(req,res)=>{
 
 const getallTicketsByid=async(req,res)=>{
     const {id}=req.params
-    console.log(id)
+    // console.log(id)
 
     try {
         const response=await getUsersTicket(id)
@@ -53,7 +53,7 @@ const createticket=async(req,res)=>{
         res.status(201).json(ticket)
         
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(401).json({
             message:'error in ticket creation',
             error:error.message

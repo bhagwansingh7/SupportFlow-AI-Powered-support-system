@@ -17,9 +17,6 @@ const getAssignTickets=async(userid)=>{
 //update status of asssign tickets
 
 const updateStatus=async(ticketStatus,ticketId,agentId)=>{
-    console.log("ticketstatus",ticketStatus)
-    console.log("ticketId",ticketId)
-    console.log("agent Id",agentId)
     try {
         const [result]=await db.execute(`
             update tickets set status=?,
@@ -47,7 +44,7 @@ const updateStatus=async(ticketStatus,ticketId,agentId)=>{
             [ticketId, agentId, "status update", null, ticketStatus]
     );
 } else {
-    // Message already exists
+    //if Message already exists
     const old_value = rows[0].new_value;
 
     await db.execute(
@@ -64,28 +61,6 @@ return result
     }
 
 }
-
-//ask question to user
-// const askQuestion = async (ticket_id, sender_id, message) => {
-//     try {
-//         const [response] = await db.execute(
-//             `INSERT INTO ticket_messages (ticket_id, sender_id, message)
-//              VALUES (?, ?, ?)`,
-//             [ticket_id, sender_id, message]
-//         );
-//         const old_val=await db.execute(`select (new_val) from ticket_activity where ticket_id=? and 
-//             sender_id=?`,[ticket_id,sender_id]);
-//         const resp=await db.execute(`update ticket_activity set new_val=? ,old_val=? where ticket_id=? and sender_id=?`,
-//             [message,old_val,ticket_id,sender_id])
-
-
-
-//         return response;
-
-//     } catch (error) {
-//         throw error;
-//     }
-// };
 
 const askQuestion = async (ticket_id, sender_id, message) => {
     try {

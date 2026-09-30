@@ -3,7 +3,7 @@ const bcrypt=require('bcrypt')
 //or register as an agent
 const registerAgent=async(agentData)=>{
     const {name,email,password}=agentData
-    console.log("agentdata is:",agentData)
+   
     try {
         const hashedPassword=await bcrypt.hash(password,10);
         const [agent]=await db.execute(
@@ -51,8 +51,7 @@ const getAllTickets=async()=>{
 //assign-tickets to  the agents
 
 const assignTickets=async(ticketId,agentId)=>{
-    console.log("ticket id is",ticketId)
-    console.log(agentId)
+
     try {
         const [result]=await db.execute(
             `UPDATE tickets
@@ -73,7 +72,7 @@ const assignTickets=async(ticketId,agentId)=>{
 
 //delete a user
 const deleteUser=async(id)=>{
-    console.log(id)
+  
     try {
         const [result]=await db.execute(`DELETE FROM users where id=?`,[id])
         return result

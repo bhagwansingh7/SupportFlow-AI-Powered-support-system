@@ -1,9 +1,9 @@
 const mysql=require('mysql2/promise')
 const env=require('dotenv').config()
-console.log("DB HOST:", process.env.DB_HOST)
-console.log("DB PORT:", process.env.DB_PORT)
-console.log("DB USER:", process.env.DB_USER)
-console.log("DB NAME:", process.env.DB_NAME)
+// console.log("DB HOST:", process.env.DB_HOST)
+// console.log("DB PORT:", process.env.DB_PORT)
+// console.log("DB USER:", process.env.DB_USER)
+// console.log("DB NAME:", process.env.DB_NAME)
 const db=mysql.createPool(
     {
         host:process.env.DB_HOST,
@@ -23,7 +23,7 @@ const checkConn=async()=>{
     
         console.log("db connected successfully")
     } catch (error) {
-        console.log("database error",error)
+        console.log("database connection error",error)
     }
 
 }
